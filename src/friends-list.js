@@ -16,7 +16,8 @@ export const Friendslist = () => {
     const [search, setSearch] = useState(''); 
     const [deletecontact, setDeletecontact] = useState('');
     const [newfriend, setnewfriend] = useState('');
-
+    const [errorinAddFriend, seterrorinAddFriend]= useState('');
+    
     function toggleModal(friend) {
         setDeletecontact(friend.name);
         setIsOpen(!isOpen);
@@ -38,40 +39,50 @@ export const Friendslist = () => {
         setsearchedFriends([...searchedData]);
     }
 
-    function addtoFavourite(friend) {
+    function updateFavourite(friend) {
         if (!friend.isFavourite) {
-            const updatedData = friends.map(function (item) {
-                if (friend.name === item.name) {
-                    return {
-                        name: item.name,
-                        isFavourite: true
-                    }
-                } else {
-                    return {
-                        name: item.name,
-                        isFavourite: item.isFavourite
-                    }
-                }
+           let restData = friends.filter(function(item) {
+                return item.name !== friend.name
             })
-            setsearchedFriends([...updatedData]);
+           let updateRecord = {
+                name:friend.name,
+                isFavourite:true
+            }
+            restData.unshift(updateRecord)  // Add newly favourite to top of array
+            setsearchedFriends([...restData]);
         } else {
-            return;
+
+            let restData = friends.filter(function(item) {
+                return item.name !== friend.name
+            })
+           let updateRecord = {
+                name:friend.name,
+                isFavourite:false
+            }
+            restData.push(updateRecord)  // Add removed favourite to end of array
+            setsearchedFriends([...restData]);
         }
     }
 
     function addNewFriend(event){
         if(event.key ==='Enter'){
-          if(newfriend.length >0){
+          if(newfriend.trim().length >0){
               const new_friend = {
                   name:newfriend,
-                  isfavourite:false
+                  isFavourite:false
               }
               const existingcontacts = friends;
+              for(let i=0;i<existingcontacts.length;i++){
+                  if(existingcontacts[i].name.toLowerCase() === newfriend.toLowerCase()){
+                    seterrorinAddFriend('Friend with provided name already exist.');
+                    return;
+                  }
+              }
               existingcontacts.push(new_friend);
               setsearchedFriends([...existingcontacts]);
               setnewfriend('');
           } else {
-              return;
+            seterrorinAddFriend("Friend's name cannot be empty")
           }
         }
     }
@@ -81,8 +92,9 @@ export const Friendslist = () => {
               <div className="add-friend">
               <h3 className="header">Add New Friend</h3>
               <input className="searchbox" type="text" placeholder="Enter friend's name to add"
-                onChange={e => setnewfriend(e.target.value)} onKeyPress={(e)=>addNewFriend(e)}>
+                onChange={e =>{setnewfriend(e.target.value);seterrorinAddFriend('') } } onKeyPress={(e)=>addNewFriend(e)}>
               </input>
+               {errorinAddFriend ? <sub className="add-friend-error">{errorinAddFriend}</sub> : null}
               </div>
 
             <div className="friend-list">
@@ -114,7 +126,7 @@ export const Friendslist = () => {
                                     </div>
 
                                     <div>
-                                        <span onClick={() => addtoFavourite(friend)} className={"icon " + (friend.isFavourite ? 'favourite' : '')} >
+                                        <span onClick={() => updateFavourite(friend)} className={"icon " + (friend.isFavourite ? 'favourite' : '')} >
                                             <i class="fa fa-heart"></i>
                                         </span>
 
@@ -134,7 +146,5 @@ export const Friendslist = () => {
             </ul>
             </div>
         </div>
-
     )
-
 }

@@ -62,6 +62,7 @@
     padding: 6px;
     margin: 5px;
     color: gray;
+    cursor: pointer;
 }
 
 .favourite{
@@ -92,4 +93,8 @@
 
   .Modal-button{
      margin: 10px;
+  }
+
+  .add-friend-error{
+      color: red;
   }
