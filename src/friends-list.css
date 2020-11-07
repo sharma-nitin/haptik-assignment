@@ -4,6 +4,20 @@
     margin-bottom: 0px;
 }
 
+.application{
+    display: flex;
+}
+
+.add-friend{
+    width: 30%;
+    margin: 50px;
+}
+
+.friend-list{
+    width: 30%;
+    margin: 50px;
+}
+
 .searchbox{
     width: -webkit-fill-available;
     padding: 10px;

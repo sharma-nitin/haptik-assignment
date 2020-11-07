@@ -13,8 +13,9 @@ export const Friendslist = () => {
 
     const [friends, setsearchedFriends] = useState(list);
     const [isOpen, setIsOpen] = useState(false);
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(''); 
     const [deletecontact, setDeletecontact] = useState('');
+    const [newfriend, setnewfriend] = useState('');
 
     function toggleModal(friend) {
         setDeletecontact(friend.name);
@@ -58,8 +59,33 @@ export const Friendslist = () => {
         }
     }
 
+    function addNewFriend(event){
+        if(event.key ==='Enter'){
+          if(newfriend.length >0){
+              const new_friend = {
+                  name:newfriend,
+                  isfavourite:false
+              }
+              const existingcontacts = friends;
+              existingcontacts.push(new_friend);
+              setsearchedFriends([...existingcontacts]);
+              setnewfriend('');
+          } else {
+              return;
+          }
+        }
+    }
+
     return (
-        <div>
+        <div className="application">
+              <div className="add-friend">
+              <h3 className="header">Add New Friend</h3>
+              <input className="searchbox" type="text" placeholder="Enter friend's name to add"
+                onChange={e => setnewfriend(e.target.value)} onKeyPress={(e)=>addNewFriend(e)}>
+              </input>
+              </div>
+
+            <div className="friend-list">
             <h3 className="header">Friends List</h3>
             <input className="searchbox" type="text" placeholder="Enter your friends name" value={search} onChange={updateSearch}>
             </input>
@@ -106,6 +132,7 @@ export const Friendslist = () => {
 
                 }
             </ul>
+            </div>
         </div>
 
     )
