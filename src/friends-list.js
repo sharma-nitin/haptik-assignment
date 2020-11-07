@@ -2,14 +2,16 @@
 import { useState } from 'react'
 import './friends-list.css'
 import Modal from "react-modal";
-
+import Pagination from "react-js-pagination"
 Modal.setAppElement("#root");
 
 export const Friendslist = () => {
 
     let list = [{ name: 'Rahul Gupta', isFavourite: true },
     { name: 'Shivangi sharma', isFavourite: false },
-    { name: 'Akash Singh', isFavourite: false }]
+    { name: 'Akash Singh', isFavourite: false },
+    { name: 'Ayush', isFavourite: false },
+    { name: 'Stephen', isFavourite: false }]
 
     const [friends, setsearchedFriends] = useState(list);
     const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +19,8 @@ export const Friendslist = () => {
     const [deletecontact, setDeletecontact] = useState('');
     const [newfriend, setnewfriend] = useState('');
     const [errorinAddFriend, seterrorinAddFriend]= useState('');
-    
+    const [paginationData,setpaginationData]= useState({currentpage:1, friends:friends.slice(0,4)});
+
     function toggleModal(friend) {
         setDeletecontact(friend.name);
         setIsOpen(!isOpen);
@@ -87,6 +90,22 @@ export const Friendslist = () => {
         }
     }
 
+   function handlePageChange(pageNumber) {
+        let upperLimit = parseInt(pageNumber)*4;
+        let lowerLimit = upperLimit - 4;
+       
+        if(upperLimit <= friends.length){
+            setpaginationData({
+            currentpage:pageNumber,
+            friends:friends.slice(lowerLimit,upperLimit)})
+                
+        }else{
+            setpaginationData({
+                currentpage:pageNumber,
+                friends:friends.slice(lowerLimit)})
+        }
+      }
+
     return (
         <div className="application">
               <div className="add-friend">
@@ -116,7 +135,7 @@ export const Friendslist = () => {
             </Modal>
             <ul className="flist-container">
                 {
-                    friends.map((friend) => {
+                    paginationData.friends.map((friend) => {
                         return (
                             <li className="list-item">
                                 <div className="flex">
@@ -144,7 +163,19 @@ export const Friendslist = () => {
 
                 }
             </ul>
+                <div className="pagination-box">
+                    <Pagination
+                    activePage={paginationData.currentpage}
+                    itemsCountPerPage={4}
+                    totalItemsCount={friends.length}
+                    pageRangeDisplayed={4}
+                    itemClass="pagination-list"
+                    onChange={handlePageChange}
+                    />
+                </div>
             </div>
+
+
         </div>
     )
 }

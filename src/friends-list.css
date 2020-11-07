@@ -98,3 +98,18 @@
   .add-friend-error{
       color: red;
   }
+
+  .pagination{
+    justify-content: center;
+    margin: 10px;
+  }
+
+  .pagination-list{
+      border: 1px solid gray;
+      padding: 4px;
+  }
+
+  .pagination-list:hover{
+      color: white;
+      background-color:turquoise;
+  }
