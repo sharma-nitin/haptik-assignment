@@ -1,0 +1,81 @@
+.header{
+    background-color: lightgrey;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.searchbox{
+    width: -webkit-fill-available;
+    padding: 10px;
+}
+
+.flist-container{
+    list-style: none;
+    border: 1px solid gray;
+    margin: 0;
+    padding: 0;
+}
+
+.list-item{
+    border: 1px solid gray;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.flex-basis{
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 15px;
+}
+
+.fname{
+    margin:0;
+    font-style: bold;
+}
+
+.sub-heading{
+    color: gray;
+}
+
+.icon{
+    border: 1px solid gray;
+    padding: 6px;
+    margin: 5px;
+    color: gray;
+}
+
+.favourite{
+    color: red;
+}
+
+.mymodal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+  }
+  
+  .myoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  .Modal-button{
+     margin: 10px;
+  }
