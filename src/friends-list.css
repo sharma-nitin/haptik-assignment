@@ -99,9 +99,17 @@
       color: red;
   }
 
+  .add-friend-success{
+      color: green;
+  }
+
   .pagination{
     justify-content: center;
     margin: 10px;
+  }
+
+  .pagination-active{
+    background-color:turquoise;
   }
 
   .pagination-list{
@@ -111,5 +119,5 @@
 
   .pagination-list:hover{
       color: white;
-      background-color:turquoise;
+      background-color:gray;
   }

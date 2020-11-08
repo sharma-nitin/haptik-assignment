@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import './friends-list.css'
 import Modal from "react-modal";
@@ -7,7 +6,7 @@ Modal.setAppElement("#root");
 
 export const Friendslist = () => {
 
-    let list = [{ name: 'Rahul Gupta', isFavourite: true },
+    var list = [{ name: 'Rahul Gupta', isFavourite: true },
     { name: 'Shivangi sharma', isFavourite: false },
     { name: 'Akash Singh', isFavourite: false },
     { name: 'Ayush', isFavourite: false },
@@ -19,7 +18,9 @@ export const Friendslist = () => {
     const [deletecontact, setDeletecontact] = useState('');
     const [newfriend, setnewfriend] = useState('');
     const [errorinAddFriend, seterrorinAddFriend]= useState('');
-    const [paginationData,setpaginationData]= useState({currentpage:1, friends:friends.slice(0,4)});
+    const [successinAddFriend, setsuccessinAddFriend]= useState('');
+    const [currentPage,setcurrentPage]= useState(1);
+    const [currentPageData,setcurrentPageData]= useState(friends.slice(0,4));
 
     function toggleModal(friend) {
         setDeletecontact(friend.name);
@@ -31,6 +32,8 @@ export const Friendslist = () => {
             return friend.name !== deletecontact
         })
         setsearchedFriends([...updatedData])
+        setcurrentPage(1)
+        setcurrentPageData(updatedData.slice(0,4))
         setIsOpen(!isOpen);
     }
 
@@ -40,6 +43,8 @@ export const Friendslist = () => {
             return friend.name.toLowerCase().startsWith(event.target.value.toLowerCase())
         })
         setsearchedFriends([...searchedData]);
+        setcurrentPage(1);
+        setcurrentPageData(searchedData.slice(0,4))
     }
 
     function updateFavourite(friend) {
@@ -53,6 +58,8 @@ export const Friendslist = () => {
             }
             restData.unshift(updateRecord)  // Add newly favourite to top of array
             setsearchedFriends([...restData]);
+            setcurrentPage(1);
+            setcurrentPageData(restData.slice(0,4))
         } else {
 
             let restData = friends.filter(function(item) {
@@ -64,10 +71,13 @@ export const Friendslist = () => {
             }
             restData.push(updateRecord)  // Add removed favourite to end of array
             setsearchedFriends([...restData]);
+            setcurrentPage(1);
+            setcurrentPageData(restData.slice(0,4))
         }
     }
 
     function addNewFriend(event){
+        setsuccessinAddFriend('');
         if(event.key ==='Enter'){
           if(newfriend.trim().length >0){
               const new_friend = {
@@ -82,8 +92,10 @@ export const Friendslist = () => {
                   }
               }
               existingcontacts.push(new_friend);
+              list.push(new_friend);
               setsearchedFriends([...existingcontacts]);
-              setnewfriend('');
+              setsuccessinAddFriend('Friend Added successfully')
+              
           } else {
             seterrorinAddFriend("Friend's name cannot be empty")
           }
@@ -95,14 +107,12 @@ export const Friendslist = () => {
         let lowerLimit = upperLimit - 4;
        
         if(upperLimit <= friends.length){
-            setpaginationData({
-            currentpage:pageNumber,
-            friends:friends.slice(lowerLimit,upperLimit)})
+            setcurrentPage(pageNumber);
+            setcurrentPageData(friends.slice(lowerLimit,upperLimit))
                 
         }else{
-            setpaginationData({
-                currentpage:pageNumber,
-                friends:friends.slice(lowerLimit)})
+            setcurrentPage(pageNumber);
+            setcurrentPageData(friends.slice(lowerLimit))
         }
       }
 
@@ -114,6 +124,7 @@ export const Friendslist = () => {
                 onChange={e =>{setnewfriend(e.target.value);seterrorinAddFriend('') } } onKeyPress={(e)=>addNewFriend(e)}>
               </input>
                {errorinAddFriend ? <sub className="add-friend-error">{errorinAddFriend}</sub> : null}
+               {successinAddFriend ? <sub className="add-friend-success">{successinAddFriend}</sub> : null}
               </div>
 
             <div className="friend-list">
@@ -135,7 +146,7 @@ export const Friendslist = () => {
             </Modal>
             <ul className="flist-container">
                 {
-                    paginationData.friends.map((friend) => {
+                    currentPageData.map((friend) => {
                         return (
                             <li className="list-item">
                                 <div className="flex">
@@ -165,11 +176,12 @@ export const Friendslist = () => {
             </ul>
                 <div className="pagination-box">
                     <Pagination
-                    activePage={paginationData.currentpage}
+                    activePage={currentPage}
                     itemsCountPerPage={4}
                     totalItemsCount={friends.length}
                     pageRangeDisplayed={4}
                     itemClass="pagination-list"
+                    activeClass = "pagination-active"
                     onChange={handlePageChange}
                     />
                 </div>
