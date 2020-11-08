@@ -120,12 +120,18 @@ export const Friendslist = () => {
         }
       }
 
+      function updateField(event){ 
+        const value = event.target.value.replace(/[^a-zA-Z\s]/g, "")
+        setnewfriend(value);
+        seterrorinAddFriend('') 
+      }
+
     return (
         <div className="application">
               <div className="add-friend">
               <h3 className="header">Add New Friend</h3>
-              <input className="searchbox" type="text" placeholder="Enter friend's name to add"
-                onChange={e =>{setnewfriend(e.target.value);seterrorinAddFriend('') } } onKeyPress={(e)=>addNewFriend(e)}>
+              <input className="searchbox" type="text" placeholder="Enter friend's name to add" value={newfriend}  onChange={event => updateField(event)}
+                onKeyPress={(e)=>addNewFriend(e)}>
               </input>
                {errorinAddFriend ? <sub className="add-friend-error">{errorinAddFriend}</sub> : null}
                {successinAddFriend ? <sub className="add-friend-success">{successinAddFriend}</sub> : null}
