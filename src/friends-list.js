@@ -99,6 +99,8 @@ export const Friendslist = () => {
               setsearchedFriends([...existingcontacts]);
               setfriendlist([...existingcontacts])
               setsuccessinAddFriend('Friend Added successfully')
+              setcurrentPage(1);
+              setcurrentPageData(existingcontacts.slice(0,4))
               
           } else {
             seterrorinAddFriend("Friend's name cannot be empty")
