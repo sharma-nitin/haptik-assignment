@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/haptik-assignment/static/css/main.5f290848.chunk.css",
+    "main.js": "/haptik-assignment/static/js/main.40c86813.chunk.js",
+    "main.js.map": "/haptik-assignment/static/js/main.40c86813.chunk.js.map",
+    "runtime-main.js": "/haptik-assignment/static/js/runtime-main.bdb7d571.js",
+    "runtime-main.js.map": "/haptik-assignment/static/js/runtime-main.bdb7d571.js.map",
+    "static/css/2.4439601f.chunk.css": "/haptik-assignment/static/css/2.4439601f.chunk.css",
+    "static/js/2.386f5a07.chunk.js": "/haptik-assignment/static/js/2.386f5a07.chunk.js",
+    "static/js/2.386f5a07.chunk.js.map": "/haptik-assignment/static/js/2.386f5a07.chunk.js.map",
+    "static/js/3.55348c27.chunk.js": "/haptik-assignment/static/js/3.55348c27.chunk.js",
+    "static/js/3.55348c27.chunk.js.map": "/haptik-assignment/static/js/3.55348c27.chunk.js.map",
+    "index.html": "/haptik-assignment/index.html",
+    "static/css/2.4439601f.chunk.css.map": "/haptik-assignment/static/css/2.4439601f.chunk.css.map",
+    "static/css/main.5f290848.chunk.css.map": "/haptik-assignment/static/css/main.5f290848.chunk.css.map",
+    "static/js/2.386f5a07.chunk.js.LICENSE.txt": "/haptik-assignment/static/js/2.386f5a07.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "/haptik-assignment/static/media/fontawesome-webfont.f691f37e.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bdb7d571.js",
+    "static/css/2.4439601f.chunk.css",
+    "static/js/2.386f5a07.chunk.js",
+    "static/css/main.5f290848.chunk.css",
+    "static/js/main.40c86813.chunk.js"
+  ]
+}
