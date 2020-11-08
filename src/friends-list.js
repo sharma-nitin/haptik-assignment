@@ -12,6 +12,7 @@ export const Friendslist = () => {
     { name: 'Ayush', isFavourite: false },
     { name: 'Stephen', isFavourite: false }]
 
+    const [friendlist, setfriendlist] = useState(list);
     const [friends, setsearchedFriends] = useState(list);
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState(''); 
@@ -28,10 +29,11 @@ export const Friendslist = () => {
     }
 
     function deleteContact(){
-        const updatedData = friends.filter(function (friend) {
+        const updatedData = friendlist.filter(function (friend) {
             return friend.name !== deletecontact
         })
         setsearchedFriends([...updatedData])
+        setfriendlist([...updatedData])
         setcurrentPage(1)
         setcurrentPageData(updatedData.slice(0,4))
         setIsOpen(!isOpen);
@@ -39,8 +41,8 @@ export const Friendslist = () => {
 
     const updateSearch = (event) => {
         setSearch(event.target.value);
-        const searchedData = list.filter(function (friend) {
-            return friend.name.toLowerCase().startsWith(event.target.value.toLowerCase())
+        const searchedData = friendlist.filter(function (friend) {
+            return friend.name.toLowerCase().startsWith(event.target.value.trim().toLowerCase())
         })
         setsearchedFriends([...searchedData]);
         setcurrentPage(1);
@@ -58,6 +60,7 @@ export const Friendslist = () => {
             }
             restData.unshift(updateRecord)  // Add newly favourite to top of array
             setsearchedFriends([...restData]);
+            setfriendlist([...restData])
             setcurrentPage(1);
             setcurrentPageData(restData.slice(0,4))
         } else {
@@ -71,6 +74,7 @@ export const Friendslist = () => {
             }
             restData.push(updateRecord)  // Add removed favourite to end of array
             setsearchedFriends([...restData]);
+            setfriendlist([...restData])
             setcurrentPage(1);
             setcurrentPageData(restData.slice(0,4))
         }
@@ -92,8 +96,8 @@ export const Friendslist = () => {
                   }
               }
               existingcontacts.push(new_friend);
-              list.push(new_friend);
               setsearchedFriends([...existingcontacts]);
+              setfriendlist([...existingcontacts])
               setsuccessinAddFriend('Friend Added successfully')
               
           } else {
